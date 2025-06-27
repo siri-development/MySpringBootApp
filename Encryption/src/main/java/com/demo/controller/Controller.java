@@ -66,7 +66,7 @@ public class Controller {
 			return "login";
 		}
 	}
-
+//new line
 	@GetMapping("/getHomePage")
 	public String getHomePage() {
 		return "welcome";
