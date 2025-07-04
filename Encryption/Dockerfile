@@ -5,7 +5,7 @@ FROM maven:3.9.6-eclipse-temurin-21 AS build
 WORKDIR /app
 
 # Copy your Spring Boot project files into the container
-COPY Encryption/ /app
+COPY . /app
 
 # Build the Spring Boot project using Maven
 RUN mvn clean package -DskipTests
