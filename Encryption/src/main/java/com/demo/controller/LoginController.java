@@ -39,8 +39,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import java.nio.file.Files;
 @org.springframework.stereotype.Controller
-public class Controller {
-	private static final Logger logger = LoggerFactory.getLogger(Controller.class);
+public class LoginController {
+	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	@Autowired
 	private ServiceInterface service;
 
