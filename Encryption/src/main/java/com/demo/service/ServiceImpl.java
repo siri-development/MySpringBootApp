@@ -152,21 +152,17 @@ public class ServiceImpl implements ServiceInterface {
 			throw new RuntimeException("File not found " + filename, e);
 		}
 	}
-	@Autowired
-	    private JavaMailSender emailSender;
-	@Override
-	public void sendSimpleMessage(String to, String subject, String text) {
-        MimeMessage message = emailSender.createMimeMessage();
-        try {
-            MimeMessageHelper helper = new MimeMessageHelper(message, false, "utf-8");
-            helper.setTo(to);
-            helper.setSubject(subject);
-            helper.setText(text, true);
-            emailSender.send(message);
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
-    }
+
+	/*
+	 * @Autowired private JavaMailSender emailSender;
+	 * 
+	 * @Override public void sendSimpleMessage(String to, String subject, String
+	 * text) { MimeMessage message = emailSender.createMimeMessage(); try {
+	 * MimeMessageHelper helper = new MimeMessageHelper(message, false, "utf-8");
+	 * helper.setTo(to); helper.setSubject(subject); helper.setText(text, true);
+	 * emailSender.send(message); } catch (MessagingException e) {
+	 * e.printStackTrace(); } }
+	 */
 	@Override
 	public String getFileNameById(Long id) {
 		return repo.getFilePath(id);

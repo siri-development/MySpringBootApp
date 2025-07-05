@@ -301,11 +301,12 @@ public class LoginController {
 		model.addAttribute("dc",dc);
 		return "getCardsDetails";
 	}
-	@PostMapping("/sendEmail")
-    public String sendEmail(@RequestBody EmailRequest request) {
-		service.sendSimpleMessage(request.getTo(),request.getSubject(), request.getMessage());
-        return "Email Sent Successfully!";
-    }
+
+	/*
+	 * @PostMapping("/sendEmail") public String sendEmail(@RequestBody EmailRequest
+	 * request) { service.sendSimpleMessage(request.getTo(),request.getSubject(),
+	 * request.getMessage()); return "Email Sent Successfully!"; }
+	 */
 	 @GetMapping("/searchSignUpDetails")
 	    public String searchSignUpDetails(@RequestParam("search") String searchQuery, Model model) {
 	        List<EncryptionBean> results = service.searchSignUpDetails(searchQuery);

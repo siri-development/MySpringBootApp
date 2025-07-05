@@ -23,7 +23,7 @@ public interface ServiceInterface {
 	Page<EncryptionBean> getPaginatedSignUpDetails(Pageable pageable);
 	void store(MultipartFile file,EncryptionBean b);
 	Resource loadAsResource(String filename);
-	void sendSimpleMessage(String string, String string2, String string3);
+	//void sendSimpleMessage(String string, String string2, String string3);
 	String getFileNameById(Long id);
 	List<EncryptionBean> searchSignUpDetails(String searchQuery);
 
