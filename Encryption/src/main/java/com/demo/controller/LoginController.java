@@ -64,7 +64,7 @@ public class LoginController {
 	        }  else {
 	        	 logger.warn("Login failed for user: {}", username);
 			map.addAttribute("message", "Provided Username or Password is wrong, Please re-enter..!");
-			return "login";
+			return "loginpage";
 		}
 	}
 //new line
