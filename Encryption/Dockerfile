@@ -4,23 +4,22 @@ FROM maven:3.9.6-eclipse-temurin-21 AS build
 # Set working directory inside the container
 WORKDIR /app
 
-# Copy your Spring Boot project files into the container
+# Copy your Spring Boot WAR-based project files into the container
 COPY . /app
 
-# Build the Spring Boot project using Maven
+# Build the WAR file
 RUN mvn clean package -DskipTests
 
-# ---------- Stage 2: Create lightweight runtime image ----------
-FROM eclipse-temurin:21-jdk
+# ---------- Stage 2: Use Tomcat to serve WAR + JSP ----------
+FROM tomcat:10.1-jdk21
 
-# Set working directory for running the app
-WORKDIR /app
+# Optional: clean default webapps
+RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Copy the built JAR file from the build stage
-COPY --from=build /app/target/*.jar app.jar
+# Copy the built WAR from the previous stage into Tomcat's webapps folder
+COPY --from=build /app/target/*.war /usr/local/tomcat/webapps/ROOT.war
 
-# Expose the port your Spring Boot app runs on (usually 8080)
+# Expose the default Tomcat port
 EXPOSE 8080
 
-# Command to run the Spring Boot app
-CMD ["java", "-jar", "app.jar"]
+# Tomcat automatically starts up

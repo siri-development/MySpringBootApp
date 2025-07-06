@@ -47,7 +47,7 @@ public class LoginController {
 
 	@GetMapping("/login")
 	public String loginForm() {
-
+		 System.out.println("Login controller hit");
 		return "loginpage";
 	}
 
