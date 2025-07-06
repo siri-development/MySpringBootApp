@@ -45,6 +45,11 @@ public class LoginController {
 	@Autowired
 	private ServiceInterface service;
 
+	@GetMapping("/")
+	public String rootRedirect() {
+	    return "redirect:/login";
+	}
+	
 	@GetMapping("/login")
 	public String loginForm() {
 		 System.out.println("Login controller hit");

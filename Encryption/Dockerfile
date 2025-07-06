@@ -17,7 +17,9 @@ FROM tomcat:10.1-jdk21
 RUN rm -rf /usr/local/tomcat/webapps/*
 
 # Copy the built WAR from the previous stage into Tomcat's webapps folder
-COPY --from=build /app/target/*.war /usr/local/tomcat/webapps/ROOT.war
+#COPY --from=build /app/target/*.war /usr/local/tomcat/webapps/ROOT.war
+COPY --from=build /app/target/Encryption.war /usr/local/tomcat/webapps/ROOT.war
+
 
 # Expose the default Tomcat port
 EXPOSE 8080
