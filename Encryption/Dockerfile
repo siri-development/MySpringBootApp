@@ -11,19 +11,18 @@ FROM tomcat:10.1-jdk21
 # Clean default webapps
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Copy the built WAR
+# Copy your WAR as ROOT.war
 COPY --from=build /app/target/Encryption.war /usr/local/tomcat/webapps/ROOT.war
 
-# ✅ Important for Render – ensure Tomcat binds to all interfaces
-RUN sed -i 's/address="127.0.0.1"/address="0.0.0.0"/g' /usr/local/tomcat/conf/server.xml
-
-# ✅ Render dynamically assigns the PORT via $PORT env var
-# But Tomcat by default uses a hardcoded 8080 in server.xml
-# So, optionally make port dynamic (recommended):
+# 🔧 Replace Tomcat's port with Render's dynamic $PORT
 RUN sed -i 's/port="8080"/port="${PORT}"/g' /usr/local/tomcat/conf/server.xml
 
-# ✅ Expose the port for local use; Render uses $PORT anyway
+# 🔧 Replace bind address (listen on all interfaces)
+RUN sed -i 's/address="127.0.0.1"/address="0.0.0.0"/g' /usr/local/tomcat/conf/server.xml
+
+# 🔧 (Optional) Disable shutdown port to avoid HEAD / errors
+RUN sed -i 's/port="8005"/port="-1"/g' /usr/local/tomcat/conf/server.xml
+
 EXPOSE 8080
 
-# Start Tomcat
 CMD ["catalina.sh", "run"]
