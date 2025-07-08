@@ -14,11 +14,15 @@ RUN rm -rf /usr/local/tomcat/webapps/*
 # Copy the built WAR
 COPY --from=build /app/target/Encryption.war /usr/local/tomcat/webapps/ROOT.war
 
-# Make sure Tomcat binds to all interfaces
-# (Not just localhost — this is crucial for Render)
+# ✅ Important for Render – ensure Tomcat binds to all interfaces
 RUN sed -i 's/address="127.0.0.1"/address="0.0.0.0"/g' /usr/local/tomcat/conf/server.xml
 
-# Expose default port (Render uses 8080)
+# ✅ Render dynamically assigns the PORT via $PORT env var
+# But Tomcat by default uses a hardcoded 8080 in server.xml
+# So, optionally make port dynamic (recommended):
+RUN sed -i 's/port="8080"/port="${PORT}"/g' /usr/local/tomcat/conf/server.xml
+
+# ✅ Expose the port for local use; Render uses $PORT anyway
 EXPOSE 8080
 
 # Start Tomcat
