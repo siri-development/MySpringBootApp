@@ -11,16 +11,19 @@ FROM tomcat:10.1-jdk21
 # Clean default webapps
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Copy your WAR as ROOT.war
+# Copy WAR as ROOT.war
 COPY --from=build /app/target/Encryption.war /usr/local/tomcat/webapps/ROOT.war
 
-# 🔧 Replace Tomcat's port with Render's dynamic $PORT
-RUN sed -i 's/port="8080"/port="${PORT}"/g' /usr/local/tomcat/conf/server.xml
+# Make sure Tomcat binds to all interfaces and uses dynamic port
+ENV PORT=8080
 
-# 🔧 Replace bind address (listen on all interfaces)
+# Replace 8080 with $PORT
+RUN sed -i "s/port=\"8080\"/port=\"${PORT}\"/" /usr/local/tomcat/conf/server.xml
+
+# Replace 127.0.0.1 with 0.0.0.0
 RUN sed -i 's/address="127.0.0.1"/address="0.0.0.0"/g' /usr/local/tomcat/conf/server.xml
 
-# 🔧 (Optional) Disable shutdown port to avoid HEAD / errors
+# Disable shutdown port (optional)
 RUN sed -i 's/port="8005"/port="-1"/g' /usr/local/tomcat/conf/server.xml
 
 EXPOSE 8080
