@@ -98,6 +98,17 @@
   <artifactId>spring-boot-starter-tomcat</artifactId>
   <scope>provided</scope>  <!-- ✅ Important for WAR -->
 </dependency>
+<dependency>
+    <groupId>jakarta.servlet</groupId>
+    <artifactId>jakarta.servlet-api</artifactId>
+    <scope>provided</scope>
+</dependency>
+<dependency>
+    <groupId>org.postgresql</groupId>
+    <artifactId>postgresql</artifactId>
+    <!-- or latest -->
+</dependency>
+
 
 	</dependencies>
 
