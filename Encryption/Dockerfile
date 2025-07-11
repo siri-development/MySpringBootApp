@@ -12,8 +12,8 @@ FROM tomcat:10.1-jdk21
 RUN rm -rf /usr/local/tomcat/webapps/*
 
 # Copy WAR as ROOT.war
-#COPY --from=build /app/target/Encryption.war /usr/local/tomcat/webapps/ROOT.war
-COPY --from=build /app/target/Encryption-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
+COPY --from=build /app/target/Encryption.war /usr/local/tomcat/webapps/ROOT.war
+#COPY --from=build /app/target/Encryption-0.0.1-SNAPSHOT.war /usr/local/tomcat/webapps/ROOT.war
 
 
 # Make sure Tomcat binds to all interfaces and uses dynamic port
